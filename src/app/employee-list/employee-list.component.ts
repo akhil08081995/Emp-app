@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { AddEmployeeComponent } from "./add-employee/add-employee.component";
-import { DeleteEmployeeComponent } from "./delete-employee/delete-employee.component";
-import { CONSTANT } from "src/constant";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { EmployeeService } from "../services/employee.service";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { DeleteEmployeeComponent } from './delete-employee/delete-employee.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { EmployeeService } from '../services/employee.service';
+import { CONSTANT } from '../../constant';
 
 @Component({
-  selector: "app-employee-list",
-  templateUrl: "./employee-list.component.html",
-  styleUrls: ["./employee-list.component.scss"],
+  selector: 'app-employee-list',
+  templateUrl: './employee-list.component.html',
+  styleUrls: ['./employee-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class EmployeeListComponent implements OnInit {
@@ -17,7 +17,7 @@ export class EmployeeListComponent implements OnInit {
   employees: any;
   filteredEmployees: any;
   filterEmployeForm: FormGroup;
-  placeholderDate = "dd-mm-yyyy";
+  placeholderDate = 'dd-mm-yyyy';
 
   constructor(
     public dialog: MatDialog,
@@ -25,11 +25,11 @@ export class EmployeeListComponent implements OnInit {
     private employeeService: EmployeeService
   ) {
     this.filterEmployeForm = this.fb.group({
-      name: [""],
-      jobTitle: [""],
-      age: [""],
-      startDate: [""],
-      endDate: [""],
+      name: [''],
+      jobTitle: [''],
+      age: [''],
+      startDate: [''],
+      endDate: [''],
     });
   }
 
@@ -44,7 +44,7 @@ export class EmployeeListComponent implements OnInit {
         this.filteredEmployees = employees;
       },
       error: (err) => {
-        console.error("Error", err);
+        console.error('Error', err);
       },
     });
   }
@@ -63,7 +63,7 @@ export class EmployeeListComponent implements OnInit {
 
   openAddDialog(action: any, employee?: any) {
     const dialogRef = this.dialog.open(AddEmployeeComponent, {
-      width: "30%",
+      width: '30%',
       data: { action, formValue: employee },
     });
 
@@ -76,7 +76,7 @@ export class EmployeeListComponent implements OnInit {
 
   deleteEmployee(employee: any): void {
     const dialogRef = this.dialog.open(DeleteEmployeeComponent, {
-      width: "25%",
+      width: '25%',
       data: {
         id: employee.id,
       },

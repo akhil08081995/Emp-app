@@ -1,21 +1,21 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   AbstractControl,
-} from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Observable } from "rxjs";
-import { EmployeeService } from "src/app/services/employee.service";
-import { CONSTANT } from "src/constant";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import * as moment from "moment";
+} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { EmployeeService } from '../../services/employee.service';
+import moment from 'moment';
+import { CONSTANT } from '../../../constant';
 
 @Component({
-  selector: "app-add-employee",
-  templateUrl: "./add-employee.component.html",
-  styleUrls: ["./add-employee.component.scss"],
+  selector: 'app-add-employee',
+  templateUrl: './add-employee.component.html',
+  styleUrls: ['./add-employee.component.scss'],
 })
 export class AddEmployeeComponent implements OnInit {
   jobTitles = CONSTANT.JOB_TITLES;
@@ -31,36 +31,36 @@ export class AddEmployeeComponent implements OnInit {
   ) {
     this.addUpdateEmployeForm = this.fb.group({
       id: [],
-      name: ["", Validators.required],
-      jobTitle: ["", Validators.required],
-      age: ["", [Validators.required, Validators.min(18), Validators.max(70)]],
-      startDate: ["", [Validators.required, this.startDateValidator()]],
-      endDate: ["", this.endDateValidator()],
+      name: ['', Validators.required],
+      jobTitle: ['', Validators.required],
+      age: ['', [Validators.required, Validators.min(18), Validators.max(70)]],
+      startDate: ['', [Validators.required, this.startDateValidator()]],
+      endDate: ['', this.endDateValidator()],
       isCurrentlyWorking: [false],
     });
 
     this.addUpdateEmployeForm
-      .get("isCurrentlyWorking")
+      .get('isCurrentlyWorking')
       ?.valueChanges.subscribe((value) => {
         this.toggleEndDateValidation();
       });
 
     this.addUpdateEmployeForm
-      .get("startDate")
+      .get('startDate')
       ?.valueChanges.subscribe(() => this.validateDates());
 
     this.addUpdateEmployeForm
-      .get("endDate")
+      .get('endDate')
       ?.valueChanges.subscribe(() => this.validateDates());
   }
 
   ngOnInit(): void {
-    this.addUpdate = this.data.action === "view" ? "Update" : "Add";
+    this.addUpdate = this.data.action === 'view' ? 'Update' : 'Add';
 
-    if (this.data.action === "view" && this.data.formValue) {
+    if (this.data.action === 'view' && this.data.formValue) {
       this.addUpdateEmployeForm.patchValue(this.data.formValue);
       this.addUpdateEmployeForm.patchValue({
-        isCurrentlyWorking: this.data.formValue.endDate === "Currently Working",
+        isCurrentlyWorking: this.data.formValue.endDate === 'Currently Working',
       });
     }
 
@@ -69,25 +69,25 @@ export class AddEmployeeComponent implements OnInit {
 
   onInputAge(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    const filteredValue = inputElement.value.replace(/[^0-9]/g, "");
+    const filteredValue = inputElement.value.replace(/[^0-9]/g, '');
 
     if (inputElement.value !== filteredValue) {
       inputElement.value = filteredValue;
     }
 
     this.addUpdateEmployeForm
-      .get("age")
+      .get('age')
       ?.setValue(filteredValue, { emitEvent: false });
   }
 
   toggleEndDateValidation() {
-    const endDateControl = this.addUpdateEmployeForm.get("endDate");
+    const endDateControl = this.addUpdateEmployeForm.get('endDate');
     const isCurrentlyWorking =
-      this.addUpdateEmployeForm.get("isCurrentlyWorking")?.value;
+      this.addUpdateEmployeForm.get('isCurrentlyWorking')?.value;
 
     if (isCurrentlyWorking) {
       endDateControl?.clearValidators();
-      endDateControl?.setValue("");
+      endDateControl?.setValue('');
     } else {
       endDateControl?.setValidators(this.endDateValidator());
     }
@@ -121,8 +121,8 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   validateDates() {
-    const startDateControl = this.addUpdateEmployeForm.get("startDate");
-    const endDateControl = this.addUpdateEmployeForm.get("endDate");
+    const startDateControl = this.addUpdateEmployeForm.get('startDate');
+    const endDateControl = this.addUpdateEmployeForm.get('endDate');
     const startDate = moment(startDateControl?.value);
     const endDate = moment(endDateControl?.value);
 
@@ -133,7 +133,7 @@ export class AddEmployeeComponent implements OnInit {
     ) {
       endDateControl?.setErrors({ endDateBeforeStartDate: true });
     } else {
-      if (endDateControl?.hasError("endDateBeforeStartDate")) {
+      if (endDateControl?.hasError('endDateBeforeStartDate')) {
         endDateControl.setErrors(null);
       }
     }
@@ -143,20 +143,20 @@ export class AddEmployeeComponent implements OnInit {
     if (this.addUpdateEmployeForm.valid) {
       this.addUpdateEmployeForm.value.endDate = this.addUpdateEmployeForm.value
         .isCurrentlyWorking
-        ? "Currently Working"
+        ? 'Currently Working'
         : this.addUpdateEmployeForm.value.endDate;
-      const apiCalling: Observable<number> =
+      const apiCalling: Observable<any> =
         this.addUpdateEmployeForm && this.addUpdateEmployeForm.value.id
           ? this.employeeService.updateEmployee(this.addUpdateEmployeForm.value)
           : this.employeeService.addEmployee(this.addUpdateEmployeForm.value);
 
       apiCalling.subscribe({
         next: (id: number) => {
-          this.snackBar.open("Employee saved successfully!", "Close");
+          this.snackBar.open('Employee saved successfully!', 'Close');
           this.dialogRef.close(true);
         },
         error: (err: any) => {
-          console.error("Error:", err);
+          console.error('Error:', err);
         },
       });
     }

@@ -14,8 +14,25 @@
       <div class="header-item">
         <span class="action-container">
           Action
-          <div class="buttonbgColor" (click)="openAddDialog('add')">
-            <mat-icon class="customIcon">person_add</mat-icon>
+          <div
+            class="buttonbgColor"
+            matTooltip="Add Employee"
+            (click)="openAddDialog('add')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="customIcon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
+              />
+            </svg>
           </div>
         </span>
       </div>
@@ -54,11 +71,45 @@
       </div>
       <div class="filter-item">
         <span class="button-container">
-          <div class="buttonbgColor" (click)="filterEmployees()">
-            <mat-icon class="customIcon">filter_list</mat-icon>
+          <div
+            matTooltip="Filter employee"
+            class="buttonbgColor"
+            (click)="filterEmployees()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="customIcon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+              />
+            </svg>
           </div>
-          <div class="buttonbgColor" (click)="clearFilters()">
-            <mat-icon class="customIcon">close</mat-icon>
+          <div
+            matTooltip="Clear Filter"
+            class="buttonbgColor"
+            (click)="clearFilters()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="customIcon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
           </div>
         </span>
       </div>
@@ -87,10 +138,33 @@
       </div>
       <div class="row-item">
         <span class="button-container">
-          <div class="buttonbgColor" (click)="openAddDialog('view', employee)">
-            <mat-icon class="customIcon">visibility</mat-icon>
+          <div
+            matTooltip="View employee"
+            class="buttonbgColor"
+            (click)="openAddDialog('view', employee)"
+          >
+            <svg
+              class="customIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+              />
+            </svg>
           </div>
           <div
+            matTooltip="Delete employee"
             *ngIf="employees && employees.length > 1"
             class="buttonbgColor"
             (click)="deleteEmployee(employee)"
@@ -102,7 +176,6 @@
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="size-6"
             >
               <path
                 stroke-linecap="round"
