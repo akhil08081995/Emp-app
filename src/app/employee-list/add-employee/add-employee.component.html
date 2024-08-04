@@ -1,0 +1,139 @@
+<div>
+  <div class="pop-heading">
+    <span class="popup-title">{{ addUpdate }} Employee</span>
+    <button class="close-btn" (click)="onCancel()">×</button>
+  </div>
+
+  <div class="popup">
+    <form [formGroup]="addUpdateEmployeForm" (ngSubmit)="onSave()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+        <mat-error
+          *ngIf="addUpdateEmployeForm.get('name')?.hasError('required')"
+        >
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Job Title</mat-label>
+        <mat-select formControlName="jobTitle">
+          <mat-option *ngFor="let job of jobTitles" [value]="job">
+            {{ job }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="addUpdateEmployeForm.get('jobTitle')?.hasError('required')"
+        >
+          Job Title is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Age</mat-label>
+        <input matInput formControlName="age" maxlength="2" />
+        <mat-error
+          *ngIf="addUpdateEmployeForm.get('age')?.hasError('required')"
+        >
+          Age is required
+        </mat-error>
+        <mat-error *ngIf="addUpdateEmployeForm.get('age')?.hasError('min')">
+          Must be at least 18 years old
+        </mat-error>
+        <mat-error *ngIf="addUpdateEmployeForm.get('age')?.hasError('max')">
+          Age must not exceed 70 years.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Start Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startDate"
+          formControlName="startDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+        <mat-error
+          *ngIf="addUpdateEmployeForm.get('startDate')?.hasError('required')"
+        >
+          Start date is required
+        </mat-error>
+
+        <mat-error
+          *ngIf="
+            addUpdateEmployeForm.get('startDate')?.hasError('startDateInFuture')
+          "
+        >
+          Start date cannot be in the future
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field
+        *ngIf="!addUpdateEmployeForm.get('isCurrentlyWorking')?.value"
+        appearance="fill"
+        class="full-width"
+      >
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="endDate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+        <mat-error
+          *ngIf="addUpdateEmployeForm.get('endDate')?.hasError('required')"
+        >
+          End date is required
+        </mat-error>
+        <mat-error
+          *ngIf="
+            addUpdateEmployeForm.get('endDate')?.hasError('endDateInFuture')
+          "
+        >
+          End date cannot be in the future
+        </mat-error>
+        <mat-error
+          *ngIf="
+            addUpdateEmployeForm
+              .get('endDate')
+              ?.hasError('endDateBeforeStartDate')
+          "
+        >
+          End date cannot be before the start date
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox
+        *ngIf="!addUpdateEmployeForm.get('endDate')?.value"
+        formControlName="isCurrentlyWorking"
+        (change)="toggleEndDateValidation()"
+      >
+        Is Currently Working
+      </mat-checkbox>
+
+      <div class="button-group">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="save-btn"
+        >
+          {{ addUpdate }}
+        </button>
+        <button
+          mat-button
+          type="button"
+          class="cancel-btn"
+          (click)="onCancel()"
+        >
+          <span>Cancel</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.pop-heading {
+  background-color: blue;
+  color: white;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: relative;
+
+  .popup-title {
+    font-size: larger;
+  }
+
+  .close-btn {
+    color: white;
+    font-size: 45px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.popup {
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.button-group {
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background-color: blue;
+  margin-right: 4px;
+}
+
+.cancel-btn {
+  background-color: red;
+  margin-left: 4px;
+
+  span {
+    color: #ffffff;
+  }
+}
