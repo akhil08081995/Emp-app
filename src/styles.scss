@@ -1,1 +1,181 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$employee_application-primary: mat.define-palette(mat.$indigo-palette);
+$employee_application-accent: mat.define-palette(
+  mat.$pink-palette,
+  A200,
+  A100,
+  A400
+);
+
+// The warn palette is optional (defaults to red).
+$employee_application-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$employee_application-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $employee_application-primary,
+      accent: $employee_application-accent,
+      warn: $employee_application-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($employee_application-theme);
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+  }
+
+  .heading-container {
+    margin-bottom: 20px;
+  }
+
+  .page-heading {
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: bolder;
+    color: blue;
+    text-align: center;
+  }
+
+  .customIcon {
+    height: 18px !important;
+    width: 18px !important;
+    font-size: 18px !important;
+  }
+
+  .action-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 8px;
+  }
+
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 0px solid #ddd;
+  }
+  .table-header {
+    border-top: 1px solid #ddd;
+  }
+
+  .table-header,
+  .table-row,
+  .filter-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .header-item,
+  .row-item,
+  .filter-item {
+    flex: 1;
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .header-item {
+    font-weight: bold;
+    background-color: #ffffff;
+  }
+
+  .filter-row {
+    background-color: #ffffff;
+  }
+
+  .filter-item input,
+  .filter-item mat-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+    border: 1px solid #ddd;
+    height: 35px;
+  }
+
+  .header-item:first-child,
+  .row-item:first-child,
+  .filter-item:first-child {
+    min-width: 10px;
+    max-width: 15px;
+  }
+
+  .header-item:nth-child(4),
+  .row-item:nth-child(4),
+  .filter-item:nth-child(4) {
+    min-width: 30px;
+    max-width: 60px;
+  }
+
+  button {
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+
+  .currently-working {
+    background-color: green;
+    color: white;
+    border-radius: 12px;
+    padding: 3px 8px;
+    display: inline-block;
+  }
+
+  .buttonbgColor {
+    background-color: blue;
+    color: white;
+    border-radius: 20%;
+    width: 33px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .buttonbgColor mat-icon {
+    color: white;
+  }
+
+  .full-width {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  mat-error {
+    font-size: 12px;
+  }
+}
