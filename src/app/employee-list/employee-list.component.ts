@@ -5,6 +5,7 @@ import { DeleteEmployeeComponent } from './delete-employee/delete-employee.compo
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { CONSTANT } from '../../constant';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employee-list',
@@ -22,7 +23,8 @@ export class EmployeeListComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private fb: FormBuilder,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private snackBar: MatSnackBar
   ) {
     this.filterEmployeForm = this.fb.group({
       name: [''],
@@ -75,6 +77,10 @@ export class EmployeeListComponent implements OnInit {
   }
 
   deleteEmployee(employee: any): void {
+    if (this.employees.length === 1) {
+      this.snackBar.open('This is the last record use can not delete', 'Close');
+      return;
+    }
     const dialogRef = this.dialog.open(DeleteEmployeeComponent, {
       width: '25%',
       data: {
