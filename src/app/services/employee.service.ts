@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class EmployeeService {
-  private storageKey = "employees";
+  private storageKey = 'employees';
 
   constructor() {
     this.initializeDatabase();
@@ -18,9 +18,12 @@ export class EmployeeService {
 
   addEmployee(employee: any): Observable<void> {
     const employees = this.getFromLocalStorage();
+    const newId =
+      employees.reduce((max, employee) => Math.max(max, employee.id), 0) + 1;
+    employee.id = newId;
     employees.push(employee);
     this.saveToLocalStorage(employees);
-    return of();
+    return of(newId);
   }
 
   updateEmployee(employee: any): Observable<void> {
@@ -34,7 +37,7 @@ export class EmployeeService {
   }
 
   deleteEmployee(id: number): Observable<void> {
-    const employees = this.getFromLocalStorage();
+    const employees = this.getFromLocalStorage() || [];
     const updatedEmployees = employees.filter((emp) => emp.id !== id);
     this.saveToLocalStorage(updatedEmployees);
     return of();
@@ -44,7 +47,7 @@ export class EmployeeService {
     const employees = this.getFromLocalStorage();
     const filteredEmployees = employees.filter((employee) => {
       const employeeEndDate =
-        employee.endDate && employee.endDate !== "Currently Working"
+        employee.endDate && employee.endDate !== 'Currently Working'
           ? new Date(employee.endDate)
           : null;
       const filterEndDate = filters.endDate ? new Date(filters.endDate) : null;
@@ -78,44 +81,44 @@ export class EmployeeService {
   private addDefaultEmployees(): Observable<void> {
     const defaultEmployees = [
       {
-        id: 1, // Add unique id for localStorage
-        name: "Akhil Gupta",
-        jobTitle: "Software Engineer",
+        id: 1,
+        name: 'Akhil Gupta',
+        jobTitle: 'Software Developer',
         age: 30,
-        startDate: new Date("2022-01-01"),
-        endDate: new Date("2023-01-01"),
+        startDate: new Date('2022-01-01'),
+        endDate: new Date('2023-01-01'),
       },
       {
         id: 2,
-        name: "Abhishek Soni",
-        jobTitle: "Team Lead",
+        name: 'Abhishek Soni',
+        jobTitle: 'Team Lead',
         age: 40,
-        startDate: new Date("2021-06-15"),
-        endDate: new Date("2022-06-15"),
+        startDate: new Date('2021-06-15'),
+        endDate: new Date('2022-06-15'),
       },
       {
         id: 3,
-        name: "Priyansh Gupta",
-        jobTitle: "Manager",
+        name: 'Priyansh Gupta',
+        jobTitle: 'Manager',
         age: 22,
-        startDate: new Date("2023-01-01"),
-        endDate: new Date("2024-01-01"),
+        startDate: new Date('2023-01-01'),
+        endDate: new Date('2024-01-01'),
       },
       {
         id: 4,
-        name: "Ankit",
-        jobTitle: "Quality Analysis",
+        name: 'Ankit',
+        jobTitle: 'Quality Analysis',
         age: 26,
-        startDate: new Date("2020-06-15"),
-        endDate: new Date("2024-06-15"),
+        startDate: new Date('2020-06-15'),
+        endDate: new Date('2024-06-15'),
       },
       {
         id: 5,
-        name: "Manish",
-        jobTitle: "UI Designer",
+        name: 'Manish',
+        jobTitle: 'UI Designer',
         age: 37,
-        startDate: new Date("2021-06-15"),
-        endDate: "Currently Working",
+        startDate: new Date('2021-06-15'),
+        endDate: 'Currently Working',
       },
     ];
 

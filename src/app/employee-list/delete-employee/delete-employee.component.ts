@@ -18,7 +18,7 @@ export class DeleteEmployeeComponent {
 
   deleteEmp() {
     this.employeeService.deleteEmployee(this.data.id).subscribe({
-      next: () => {
+      complete: () => {
         this.snackBar.open('Employee Deleted successfully!', 'Close');
         this.dialogRef.close(true);
       },

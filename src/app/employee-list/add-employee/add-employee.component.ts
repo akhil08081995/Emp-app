@@ -158,6 +158,10 @@ export class AddEmployeeComponent implements OnInit {
         error: (err: any) => {
           console.error('Error:', err);
         },
+        complete: () => {
+          this.snackBar.open('Employee saved successfully!', 'Close');
+          this.dialogRef.close(true);
+        },
       });
     }
   }
